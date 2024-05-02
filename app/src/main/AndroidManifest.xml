@@ -15,7 +15,8 @@
         <activity
             android:name=".MainActivity2"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".MainActivity"
