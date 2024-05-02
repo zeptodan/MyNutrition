@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNutrition"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".MainActivity"
@@ -22,11 +26,6 @@
             android:name=".Splash"
             android:exported="true"
             android:screenOrientation="portrait">
-            <activity
-                android:name=".MainActivity2"
-                android:exported="false"
-                android:screenOrientation="portrait"
-                />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
