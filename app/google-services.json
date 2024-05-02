@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393024012159",
+    "project_id": "mynutrition-ab250",
+    "storage_bucket": "mynutrition-ab250.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393024012159:android:8b5bf94f83002620faa44a",
+        "android_client_info": {
+          "package_name": "com.example.mynutrition"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUqAzQi-mjjE1I7NmEE-cL_IUCGx6GT20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
