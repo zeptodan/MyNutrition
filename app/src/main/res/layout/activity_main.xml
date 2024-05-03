@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
-        android:background="#69BF75"
+        android:background="@drawable/round"
         android:text="Login"
         android:textColor="#E6E2D5"
         app:layout_constraintBottom_toTopOf="@+id/signUpTextView"
