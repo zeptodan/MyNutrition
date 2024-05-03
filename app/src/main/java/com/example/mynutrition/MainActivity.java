@@ -12,8 +12,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.textfield.TextInputEditText;
 
+public class MainActivity extends AppCompatActivity {
+    private TextInputEditText username_v,password_v;
+    private String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,16 @@ public class MainActivity extends AppCompatActivity {
        Intent move_to_signUp=new Intent(this, MainActivity2.class);
        startActivity(move_to_signUp);
    }
+   public void loginButton(View v)
+   {
+       username_v=findViewById(R.id.username);
+        password_v=findViewById(R.id.password);
+        username=username_v.getText().toString();
+        password=password_v.getText().toString();
+        if (username.isEmpty()||password.length()<8)
+        {
+            Toast.makeText(this, "Invalid Username or password", Toast.LENGTH_SHORT).show();
+        }
 
-
-
+   }
 }
