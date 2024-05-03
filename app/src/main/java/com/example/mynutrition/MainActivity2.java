@@ -27,7 +27,10 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         arrow = findViewById(R.id.arrow);
         arrow.setVisibility(View.INVISIBLE);
-        fragment_change(new PhoneNumber_F());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.frameLayout,f);
+            ft.commit();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -35,35 +38,37 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
     }
+    PhoneNumber_F f=new PhoneNumber_F();
     Name_F f1=new Name_F();
     Password_F f2=new Password_F();
     Username_F f3=new Username_F();
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumber()) {
-            fragment_change(f1);
+            replace_fragment(f1);
             count++;
             arrow.setVisibility(View.VISIBLE);
 
         } else if (count==1&&validateName()) {
-            fragment_change(f2);
+
+            replace_fragment(f2);
             count++;
         }
         else if(count==2&&validatePassword()){
-            fragment_change(f3);
+
+            replace_fragment(f3);
             count++;
         } else if (count==3&&validatenewUsername()) {
-            
+
         }
     }
 
-    public void fragment_change(Fragment f)
+    public void replace_fragment(Fragment f)
     {
-        FragmentManager fm= getSupportFragmentManager();
-        FragmentTransaction ft=fm.beginTransaction();
-        ft.add(R.id.frameLayout,f);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frameLayout,f);
         ft.commit();
-
     }
     public void back(View v)
     {
@@ -71,17 +76,17 @@ public class MainActivity2 extends AppCompatActivity {
         FragmentTransaction ft=fm.beginTransaction();
         if(count==1)
         {
-            ft.remove(f1);
-            ft.commit();
+            replace_fragment(f);
+            
             arrow.setVisibility(View.INVISIBLE);
             count--;
         } else if (count==2) {
-            ft.remove(f2);
-            ft.commit();
+
+            replace_fragment(f1);
+            
             count--;
         } else if (count==3) {
-            ft.remove(f3);
-            ft.commit();
+            replace_fragment(f2);
             count--;
         }
     }
@@ -113,9 +118,14 @@ public class MainActivity2 extends AppCompatActivity {
         confirmPassword_v=findViewById(R.id.confirmPassword);
         password=password_v.getText().toString();
         confirmPassword=confirmPassword_v.getText().toString();
-        if(password.length()<8||password.equals(confirmPassword))
+        if(password.length()<8)
         {
             Toast.makeText(this, "The password must have at least 8 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!(password.equals(confirmPassword)))
+        {
+            Toast.makeText(this, "The password doesn't match", Toast.LENGTH_SHORT).show();
             return false;
         }
         else return true;
