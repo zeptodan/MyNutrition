@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_white"
+    android:background="@color/white"
     android:clickable="true"
     tools:context=".MainActivity">
 
@@ -60,7 +60,7 @@
         android:background="@drawable/round"
         android:onClick="loginButton"
         android:text="Login"
-        android:textColor="#E6E2D5"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
