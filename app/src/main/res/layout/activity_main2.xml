@@ -59,7 +59,7 @@
         android:background="@drawable/round"
         android:onClick="continue_button"
         android:text="Continue"
-        android:textColor="@color/back_white"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
