@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity2 extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
     private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,newUsername_v;
     private String mobileNumber,surname,firstName,password,confirmPassword,newUsername;
     private ImageButton arrow;
@@ -24,7 +24,7 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_signup);
         arrow = findViewById(R.id.arrow);
         arrow.setVisibility(View.INVISIBLE);
         FragmentManager fm = getSupportFragmentManager();
