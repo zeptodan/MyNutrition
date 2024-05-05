@@ -1,5 +1,6 @@
 package com.example.mynutrition;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -59,7 +60,8 @@ public class SignUp extends AppCompatActivity {
             replace_fragment(f3);
             count++;
         } else if (count==3&&validatenewUsername()) {
-
+            Intent home=new Intent(this, Homepage.class);
+            startActivity(home);
         }
     }
 
