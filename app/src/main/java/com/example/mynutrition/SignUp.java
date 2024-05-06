@@ -42,7 +42,7 @@ public class SignUp extends AppCompatActivity {
     PhoneNumber_F f=new PhoneNumber_F();
     Name_F f1=new Name_F();
     Password_F f2=new Password_F();
-    //Username_F f3=new Username_F();
+    Username_F f3=new Username_F();
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumber()) {
@@ -56,8 +56,12 @@ public class SignUp extends AppCompatActivity {
             count++;
         }
         else if(count==2&&validatePassword()){
-            Intent intent=new Intent(this,Homepage.class);
-            startActivity(intent);
+
+            replace_fragment(f3);
+            count++;
+        } else if (count==3&&validatenewUsername()) {
+            Intent home=new Intent(this, Homepage.class);
+            startActivity(home);
         }
     }
 
@@ -81,10 +85,23 @@ public class SignUp extends AppCompatActivity {
         } else if (count==2) {
 
             replace_fragment(f1);
+            
+            count--;
+        } else if (count==3) {
+            replace_fragment(f2);
             count--;
         }
     }
-
+    public boolean validatenewUsername(){
+        newUsername_v=findViewById(R.id.newUsername);
+        newUsername=newUsername_v.getText().toString();
+        if (newUsername.isEmpty())
+        {
+            Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else return true;
+    }
     public boolean validateName()
     {
         firstName_v=findViewById(R.id.firstName);
@@ -128,6 +145,6 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
             return false;
         } else return true;
-        //anas email validation
+
     }
 }
