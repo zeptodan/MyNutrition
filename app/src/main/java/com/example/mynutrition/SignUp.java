@@ -42,7 +42,6 @@ public class SignUp extends AppCompatActivity {
     PhoneNumber_F f=new PhoneNumber_F();
     Name_F f1=new Name_F();
     Password_F f2=new Password_F();
-    Username_F f3=new Username_F();
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumber()) {
@@ -56,10 +55,6 @@ public class SignUp extends AppCompatActivity {
             count++;
         }
         else if(count==2&&validatePassword()){
-
-            replace_fragment(f3);
-            count++;
-        } else if (count==3&&validatenewUsername()) {
             Intent home=new Intent(this, Homepage.class);
             startActivity(home);
         }
@@ -86,9 +81,6 @@ public class SignUp extends AppCompatActivity {
 
             replace_fragment(f1);
             
-            count--;
-        } else if (count==3) {
-            replace_fragment(f2);
             count--;
         }
     }
