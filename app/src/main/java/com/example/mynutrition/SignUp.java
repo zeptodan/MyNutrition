@@ -17,10 +17,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class SignUp extends AppCompatActivity {
-    private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,newUsername_v;
-    private String mobileNumber,surname,firstName,password,confirmPassword,newUsername;
+    private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,email_v;
+    private String mobileNumber,surname,firstName,password,confirmPassword,email;
     private ImageButton arrow;
-    private int count=0;
+    private static int  count=0;
+    public static int getCount()
+    {
+        return count;
+    }
+    PhoneNumber_F f=new PhoneNumber_F();
+    Name_F f1=new Name_F();
+    Password_F f2=new Password_F();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +46,15 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
-    PhoneNumber_F f=new PhoneNumber_F();
-    Name_F f1=new Name_F();
-    Password_F f2=new Password_F();
+    public void goToLogin(View v)
+    {
+        Intent login= new Intent(this,LogIn.class);
+        startActivity(login);
+        finish();
+    }
     public void continue_button(View v)
     {
-        if(count==0&& validateMobileNumber()) {
+        if(count==0&& validateMobileNumberEmail()) {
             replace_fragment(f1);
             count++;
             arrow.setVisibility(View.VISIBLE);
@@ -55,8 +65,10 @@ public class SignUp extends AppCompatActivity {
             count++;
         }
         else if(count==2&&validatePassword()){
+            count++;
             Intent home=new Intent(this, Homepage.class);
             startActivity(home);
+            finish();
         }
     }
 
@@ -78,22 +90,11 @@ public class SignUp extends AppCompatActivity {
             arrow.setVisibility(View.INVISIBLE);
             count--;
         } else if (count==2) {
-
             replace_fragment(f1);
-            
             count--;
         }
     }
-    public boolean validatenewUsername(){
-        newUsername_v=findViewById(R.id.newUsername);
-        newUsername=newUsername_v.getText().toString();
-        if (newUsername.isEmpty())
-        {
-            Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else return true;
-    }
+
     public boolean validateName()
     {
         firstName_v=findViewById(R.id.firstName);
@@ -124,9 +125,11 @@ public class SignUp extends AppCompatActivity {
         }
         else return true;
     }
-    public boolean validateMobileNumber() {
+    public boolean validateMobileNumberEmail() {
         mobileNumber_v = findViewById(R.id.mobileNumber);
         mobileNumber = mobileNumber_v.getText().toString();
+        email_v=findViewById(R.id.email);
+        email=email_v.getText().toString();
         if (mobileNumber.length() != 10 && mobileNumber.length() != 11) {
             Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
             return false;

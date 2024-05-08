@@ -31,6 +31,7 @@ public class LogIn extends AppCompatActivity {
    {
        Intent move_to_signUp=new Intent(this, SignUp.class);
        startActivity(move_to_signUp);
+       finish();
    }
    public void loginButton(View v)
    {

@@ -77,7 +77,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newUsername"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="188dp"
