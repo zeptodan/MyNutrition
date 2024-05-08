@@ -20,14 +20,7 @@ public class SignUp extends AppCompatActivity {
     private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,email_v;
     private String mobileNumber,surname,firstName,password,confirmPassword,email;
     private ImageButton arrow;
-    private static int  count=0;
-    public static int getCount()
-    {
-        return count;
-    }
-    PhoneNumber_F f=new PhoneNumber_F();
-    Name_F f1=new Name_F();
-    Password_F f2=new Password_F();
+    private  int  count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +30,8 @@ public class SignUp extends AppCompatActivity {
         arrow.setVisibility(View.INVISIBLE);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frameLayout,f);
-            ft.commit();
+        ft.add(R.id.frameLayout,new PhoneNumber_F());
+        ft.commit();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -55,13 +48,13 @@ public class SignUp extends AppCompatActivity {
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumberEmail()) {
-            replace_fragment(f1);
+            replace_fragment(new Name_F());
             count++;
             arrow.setVisibility(View.VISIBLE);
 
         } else if (count==1&&validateName()) {
 
-            replace_fragment(f2);
+            replace_fragment(new Password_F());
             count++;
         }
         else if(count==2&&validatePassword()){
@@ -85,12 +78,12 @@ public class SignUp extends AppCompatActivity {
         FragmentTransaction ft=fm.beginTransaction();
         if(count==1)
         {
-            replace_fragment(f);
+            replace_fragment(new PhoneNumber_F());
             
             arrow.setVisibility(View.INVISIBLE);
             count--;
         } else if (count==2) {
-            replace_fragment(f1);
+            replace_fragment(new Name_F());
             count--;
         }
     }

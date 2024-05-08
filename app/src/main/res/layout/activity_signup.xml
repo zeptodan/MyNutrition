@@ -85,6 +85,7 @@
         android:clickable="true"
         android:onClick="goToLogin"
         android:text="Login"
+        android:textColor="#3F51B5"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView11"
         app:layout_constraintStart_toEndOf="@+id/textView11" />
 
