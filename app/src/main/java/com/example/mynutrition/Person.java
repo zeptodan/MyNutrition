@@ -11,4 +11,12 @@ public abstract class Person {
         this.name = name;
         this.phonenum = phonenum;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhonenum() {
+        return phonenum;
+    }
 }

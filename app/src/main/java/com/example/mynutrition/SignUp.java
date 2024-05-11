@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
@@ -70,12 +71,23 @@ public class SignUp extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
+                        Toast.makeText(SignUp.this, "You have been registered. Please verify your email.", Toast.LENGTH_SHORT).show();
                         auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                                    Toast.makeText(SignUp.this, "You have been registered. Please verify your account through email.", Toast.LENGTH_SHORT).show();
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                                    DatabaseReference dbref = db.getReference("User");
+                                    User user = new User(firstName + " " + surname,mobileNumber);
+                                    dbref.child(email.substring(0,email.indexOf('@'))).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            count++;
+                                            Intent signup=new Intent(SignUp.this, LogIn.class);
+                                            startActivity(signup);
+                                            finish();
+                                        }
+                                    });
                                 }
                                 else{
                                     Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -88,10 +100,6 @@ public class SignUp extends AppCompatActivity {
                     }
                 }
             });
-//            count++;
-//            Intent home=new Intent(this, Homepage.class);
-//            startActivity(home);
-//            finish();
         }
     }
 
