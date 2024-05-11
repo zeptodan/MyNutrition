@@ -22,10 +22,6 @@ import com.example.mynutrition.ui.notifications.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Homepage extends AppCompatActivity {
-    HomeFragment hf= new HomeFragment();
-    AppointmentFragment af=new AppointmentFragment();
-    MessageFragment mf=new MessageFragment();
-    NotificationFragment nf= new NotificationFragment();
     FragmentManager fm= getSupportFragmentManager();
     FragmentTransaction ft= fm.beginTransaction();
     BottomNavigationView bottomNavigationView;
@@ -35,30 +31,27 @@ public class Homepage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_homepage);
         bottomNavigationView=(BottomNavigationView) findViewById(R.id.bottomNavigation);
-        ft.add(R.id.framelayoutmain,hf);
+        ft.add(R.id.framelayoutmain, new HomeFragment());
         ft.commit();
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id=menuItem.getItemId();
-                if(id==R.id.message)
-                {
-                    replace_fragment(new MessageFragment());
-                }
-                else if(id==R.id.appointment)
-                {
-                    replace_fragment(new AppointmentFragment());
-                }
-                else if(id==R.id.home1)
-                {
-                    replace_fragment(new HomeFragment());
-                }
-                else if(id==R.id.notification)
-                {
-                    replace_fragment(new NotificationFragment());
-                }
-                return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            int id=menuItem.getItemId();
+            if(id==R.id.message)
+            {
+                replace_fragment(new MessageFragment());
             }
+            else if(id==R.id.appointment)
+            {
+                replace_fragment(new AppointmentFragment());
+            }
+            else if(id==R.id.home1)
+            {
+                replace_fragment(new HomeFragment());
+            }
+            else if(id==R.id.notification)
+            {
+                replace_fragment(new NotificationFragment());
+            }
+            return true;
         });
 
 
@@ -71,9 +64,8 @@ public class Homepage extends AppCompatActivity {
 
     public void replace_fragment(Fragment f)
     {
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        FragmentManager fm= getSupportFragmentManager();
+        FragmentTransaction ft= fm.beginTransaction();
         ft.replace(R.id.framelayoutmain,f);
         ft.commit();
     }
