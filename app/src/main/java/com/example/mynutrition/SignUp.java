@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,6 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
     private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,email_v;
@@ -48,20 +57,62 @@ public class SignUp extends AppCompatActivity {
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumberEmail()) {
-            replace_fragment(new Name_F());
-            count++;
-            arrow.setVisibility(View.VISIBLE);
-
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signInWithEmailAndPassword(email,"0").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()){
+                        if ((((FirebaseAuthException)task.getException()).getErrorCode()).equals("ERROR_INVALID_EMAIL")){
+                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            replace_fragment(new Name_F());
+                            count++;
+                            arrow.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            });
         } else if (count==1&&validateName()) {
 
             replace_fragment(new Password_F());
             count++;
         }
         else if(count==2&&validatePassword()){
-            count++;
-            Intent home=new Intent(this, Homepage.class);
-            startActivity(home);
-            finish();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(SignUp.this, "You have been registered. Please verify your email.", Toast.LENGTH_SHORT).show();
+                        auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                                    DatabaseReference dbref = db.getReference("User");
+                                    User user = new User(firstName + " " + surname,mobileNumber);
+                                    dbref.child(auth.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            count++;
+                                            Intent signup=new Intent(SignUp.this, LogIn.class);
+                                            startActivity(signup);
+                                            finish();
+                                        }
+                                    });
+                                }
+                                else{
+                                    Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -124,15 +175,16 @@ public class SignUp extends AppCompatActivity {
         email_v=findViewById(R.id.email);
         email=email_v.getText().toString();
         if (mobileNumber.length() != 10 && mobileNumber.length() != 11) {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
         } else if (mobileNumber.length() == 10 && mobileNumber.charAt(0) != '3') {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
         } else if (mobileNumber.length() == 11 && mobileNumber.charAt(0) != '0' && mobileNumber.charAt(1) != '3') {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
-        } else return true;
+        }
+        return true;
 
     }
 }
