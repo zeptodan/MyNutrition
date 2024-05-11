@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
     private EditText mobileNumber_v,firstName_v,surname_v,password_v,confirmPassword_v,email_v;
@@ -73,10 +74,11 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Toast.makeText(SignUp.this, "registered", Toast.LENGTH_SHORT).show();
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                    Toast.makeText(SignUp.this, "You have been registered. Please verify your account through email.", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    Toast.makeText(SignUp.this, "MA MAN", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

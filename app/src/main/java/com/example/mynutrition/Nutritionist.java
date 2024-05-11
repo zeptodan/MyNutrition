@@ -5,7 +5,7 @@ public class Nutritionist extends Person{
         super();
     }
 
-    public Nutritionist(String username, String password, String name, String phonenum) {
-        super(username, password, name, phonenum);
+    public Nutritionist( String name, String phonenum) {
+        super( name, phonenum);
     }
 }

@@ -5,7 +5,7 @@ public class User extends Person{
         super();
     }
 
-    public User(String username, String password, String name, String phonenum) {
-        super(username, password, name, phonenum);
+    public User(String name, String phonenum) {
+        super( name, phonenum);
     }
 }
