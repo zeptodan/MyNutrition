@@ -53,6 +53,10 @@ public class LogIn extends AppCompatActivity {
        email=email_v.getText().toString();
        password=password_v.getText().toString();
        FirebaseAuth auth = FirebaseAuth.getInstance();
+       if (email.isEmpty() || password.isEmpty()){
+           Toast.makeText(this, "email or password missing.", Toast.LENGTH_SHORT).show();
+           return;
+       }
        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
@@ -63,18 +67,13 @@ public class LogIn extends AppCompatActivity {
                        finish();
                    }
                    else{
-                       Toast.makeText(LogIn.this, "Please verify your email.", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(LogIn.this, "Invalid or unverified email address.", Toast.LENGTH_SHORT).show();
                    }
                }
                else{
-                   Toast.makeText(LogIn.this, "Invalid email or password.", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(LogIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                }
            }
        });
-        if (email.isEmpty()||password.length()<8)
-        {
-            Toast.makeText(this, "Invalid Username or password", Toast.LENGTH_SHORT).show();
-        }
-
    }
 }

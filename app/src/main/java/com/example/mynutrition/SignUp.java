@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -56,10 +57,22 @@ public class SignUp extends AppCompatActivity {
     public void continue_button(View v)
     {
         if(count==0&& validateMobileNumberEmail()) {
-            replace_fragment(new Name_F());
-            count++;
-            arrow.setVisibility(View.VISIBLE);
-
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signInWithEmailAndPassword(email,"0").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()){
+                        if ((((FirebaseAuthException)task.getException()).getErrorCode()).equals("ERROR_INVALID_EMAIL")){
+                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            replace_fragment(new Name_F());
+                            count++;
+                            arrow.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            });
         } else if (count==1&&validateName()) {
 
             replace_fragment(new Password_F());
@@ -79,7 +92,7 @@ public class SignUp extends AppCompatActivity {
                                     FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
                                     DatabaseReference dbref = db.getReference("User");
                                     User user = new User(firstName + " " + surname,mobileNumber);
-                                    dbref.child(email.substring(0,email.indexOf('@'))).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    dbref.child(auth.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             count++;
@@ -162,15 +175,16 @@ public class SignUp extends AppCompatActivity {
         email_v=findViewById(R.id.email);
         email=email_v.getText().toString();
         if (mobileNumber.length() != 10 && mobileNumber.length() != 11) {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
         } else if (mobileNumber.length() == 10 && mobileNumber.charAt(0) != '3') {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
         } else if (mobileNumber.length() == 11 && mobileNumber.charAt(0) != '0' && mobileNumber.charAt(1) != '3') {
-            Toast.makeText(this, "Invalid mobile nuumber", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
-        } else return true;
+        }
+        return true;
 
     }
 }
