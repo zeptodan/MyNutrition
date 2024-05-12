@@ -31,7 +31,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return messages.size();
     }
 
-    public void setItems(ArrayList<Message> messages) {
+    public void setMessages(ArrayList<Message> messages) {
         this.messages = messages;
         notifyDataSetChanged();
     }
