@@ -107,6 +107,9 @@ public class Chat extends AppCompatActivity {
     public void sendMessage(View v){
         TextInputEditText edittext = v.findViewById(R.id.sendMessage);
         String text = edittext.getText().toString();
+        if (text.isEmpty()){
+            return;
+        }
         edittext.setText("");
         Timestamp time = Timestamp.now();
         Message message = new Message(text,senderId,time);
