@@ -23,7 +23,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.message.setText(messages.get(position).text);
+        holder.message.setText(messages.get(position).getText());
     }
 
     @Override

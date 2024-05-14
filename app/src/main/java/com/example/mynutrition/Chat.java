@@ -3,6 +3,7 @@ package com.example.mynutrition;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ServerValue;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Chat extends AppCompatActivity {
     RecyclerView chatview;
@@ -50,16 +53,9 @@ public class Chat extends AppCompatActivity {
         MessageAdapter adapter = new MessageAdapter();
         messages = new ArrayList<>();
         //first display
+        FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        //receiverId = getIntent().getExtras().getString("id");
-        //testing
-        if (auth.getCurrentUser().getUid().equals("fywDYvxSrRTTKBoTmz7QC1XkqhF3")){
-            receiverId = "NjGK8aDSk1cnECZ2yXHDOqIZrQU2";
-        }
-        else{
-            receiverId = "fywDYvxSrRTTKBoTmz7QC1XkqhF3";
-        }
+        receiverId = getIntent().getExtras().getString("id");
         senderId = auth.getCurrentUser().getUid();
         String[] paths = new String[2];
         paths[0] = senderId;
@@ -71,15 +67,8 @@ public class Chat extends AppCompatActivity {
         }
         path = paths[0] + paths[1];
         dbref = db.getReference("messages/" + path);
-        dbref.orderByChild("Timestamp").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot ds = task.getResult();
-                messages = ds.getValue(ArrayList.class);
-                adapter.setMessages(messages);
-                chatview.setAdapter(adapter);
-            }
-        });
+        chatview.setAdapter(adapter);
+        chatview.setLayoutManager(new LinearLayoutManager(Chat.this));
         //Listener
         dbref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -89,7 +78,6 @@ public class Chat extends AppCompatActivity {
                 adapter.setMessages(messages);
                 adapter.notifyItemInserted(messages.size()-1);
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
@@ -112,14 +100,13 @@ public class Chat extends AppCompatActivity {
         });
     }
     public void sendMessage(View v){
-        TextInputEditText edittext = v.findViewById(R.id.sendMessage);
+        TextInputEditText edittext = findViewById(R.id.sendMessage);
         String text = edittext.getText().toString();
         if (text.isEmpty()){
             return;
         }
         edittext.setText("");
-        Timestamp time = Timestamp.now();
-        Message message = new Message(text,senderId,time);
-        dbref.setValue(message);
+        Message message = new Message(text,senderId);
+        dbref.push().setValue(message);
     }
 }
