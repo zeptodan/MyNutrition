@@ -11,4 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/chatview"/>
+
+    <Button
+        android:id="@+id/sendMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:onClick="sendMessage"
+        android:text="Button" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sendMessageButton"
+        android:layout_marginTop="100dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendMessage"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
