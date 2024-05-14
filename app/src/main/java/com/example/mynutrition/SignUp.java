@@ -56,22 +56,6 @@ public class SignUp extends AppCompatActivity {
     }
     public void continue_button(View v) {
         if(count==0&& validateMobileNumberEmail()) {
-//            FirebaseAuth auth = FirebaseAuth.getInstance();
-//            auth.signInWithEmailAndPassword(email,"0").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (!task.isSuccessful()){
-//                        if ((((FirebaseAuthException)task.getException()).getErrorCode()).equals("ERROR_INVALID_EMAIL")){
-//                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                        else{
-//                            replace_fragment(new Name_F());
-//                            count++;
-//                            arrow.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                }
-//            });
         replace_fragment(new Name_F());
         count++;
         arrow.setVisibility(View.VISIBLE);
