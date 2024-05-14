@@ -52,7 +52,7 @@ public class Chat extends AppCompatActivity {
         chatview = findViewById(R.id.chatview);
         MessageAdapter adapter = new MessageAdapter();
         messages = new ArrayList<>();
-        //first display
+        //first display.
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         receiverId = getIntent().getExtras().getString("id");
