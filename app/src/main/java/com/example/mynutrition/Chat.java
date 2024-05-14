@@ -52,7 +52,14 @@ public class Chat extends AppCompatActivity {
         //first display
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        receiverId = getIntent().getExtras().getString("id");
+        //receiverId = getIntent().getExtras().getString("id");
+        //testing
+        if (auth.getCurrentUser().getUid().equals("fywDYvxSrRTTKBoTmz7QC1XkqhF3")){
+            receiverId = "NjGK8aDSk1cnECZ2yXHDOqIZrQU2";
+        }
+        else{
+            receiverId = "fywDYvxSrRTTKBoTmz7QC1XkqhF3";
+        }
         senderId = auth.getCurrentUser().getUid();
         String[] paths = new String[2];
         paths[0] = senderId;
