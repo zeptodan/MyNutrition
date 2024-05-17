@@ -5,7 +5,7 @@ public class Rider extends Person{
         super();
     }
 
-    public Rider( String name, String phonenum) {
-        super(name, phonenum);
+    public Rider(String name, String phonenum, String id) {
+        super(name, phonenum, id);
     }
 }

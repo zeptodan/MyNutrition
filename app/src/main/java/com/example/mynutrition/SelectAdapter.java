@@ -1,5 +1,8 @@
 package com.example.mynutrition;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynutrition.ui.appointments.AppointmentFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -16,7 +20,13 @@ import java.util.ArrayList;
 public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder>{
 
     ArrayList<Person> people = new ArrayList<>();
+    Context context;
     String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    public SelectAdapter(Context context) {
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,9 +35,20 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         ViewHolder Holder = new ViewHolder(view);
         return Holder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.selecttextname.setText(people.get(position).getName());
+        holder.selecttextphone.setText(people.get(position).getPhonenum());
+        holder.select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chat=new Intent(context, Homepage.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", people.get(holder.getAdapterPosition()).getId());
+                chat.putExtras(bundle);
+                context.startActivity(chat);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -40,11 +61,14 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView select;
-        private TextView selecttext;
+        private TextView selecttextname;
+        private TextView selecttextphone;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             select = itemView.findViewById(R.id.selectcard);
-            selecttext = itemView.findViewById(R.id.selecttext);
+            selecttextname = itemView.findViewById(R.id.selecttextname);
+            selecttextphone = itemView.findViewById(R.id.selecttextphone);
         }
     }
 }

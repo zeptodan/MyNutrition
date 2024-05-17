@@ -77,7 +77,7 @@ public class SignUp extends AppCompatActivity {
                                 if (task.isSuccessful()){
                                     FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
                                     DatabaseReference dbref = db.getReference("User");
-                                    User user = new User(firstName + " " + surname,mobileNumber);
+                                    User user = new User(firstName + " " + surname,mobileNumber,auth.getCurrentUser().getUid());
                                     dbref.child(auth.getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
