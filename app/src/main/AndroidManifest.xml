@@ -16,7 +16,8 @@
             android:name=".Chat"
             android:exported="false" />
         <activity
-            android:name=".Homepage"
+
+            android:name=".Splash"
             android:exported="false"
             android:label="@string/title_activity_homepage" />
         <activity
@@ -28,7 +29,8 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Splash"
+
+            android:name=".Homepage"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

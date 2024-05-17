@@ -173,6 +173,12 @@ public class SignUp extends AppCompatActivity {
             return false;
         }
         return true;
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent login= new Intent(this,LogIn.class);
+        startActivity(login);
+        super.onBackPressed();
     }
 }
