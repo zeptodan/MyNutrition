@@ -6,19 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.appointments.AppointmentFragment">
-
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Appointments"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#69BF70"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/selectview"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

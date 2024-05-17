@@ -1,6 +1,6 @@
 package com.example.mynutrition;
 
-public abstract class Person {
+public class Person {
     String name;
     String phonenum;
 
