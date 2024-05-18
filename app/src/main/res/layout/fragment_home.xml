@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="bottom"
     tools:context=".ui.home.HomeFragment">
 
     <ViewFlipper
@@ -43,24 +42,22 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="155dp"
-        android:layout_height="233dp"
+        android:layout_width="158dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/getplan"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/viewFlipper" />
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/viewFlipper"
+        app:layout_constraintTop_toBottomOf="@+id/viewFlipper" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="153dp"
-        android:layout_height="233dp"
-        android:layout_marginBottom="70dp"
-        android:foregroundGravity="bottom"
+        android:layout_width="158dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/bmi"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/viewFlipper"
-        app:layout_constraintTop_toBottomOf="@+id/viewFlipper"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/viewFlipper" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

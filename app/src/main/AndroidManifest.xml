@@ -13,31 +13,24 @@
         android:theme="@style/Theme.MyNutrition"
         tools:targetApi="31">
         <activity
-            android:name=".Feedback"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterNutritionist"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterRider"
-            android:exported="false" />
-        <activity
             android:name=".Chat"
             android:exported="false" />
         <activity
+
             android:name=".Splash"
             android:exported="false"
             android:label="@string/title_activity_homepage" />
-        <activity
-            android:name=".Homepage"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".SignUp"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LogIn"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+
+            android:name=".Homepage"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
