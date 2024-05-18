@@ -21,16 +21,17 @@
             android:exported="false"
             android:label="@string/title_activity_homepage" />
         <activity
-            android:name=".SignUp"
+            android:name=".Homepage"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LogIn"
+            android:name=".SignUp"
+
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
 
-            android:name=".Homepage"
+            android:name=".LogIn"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

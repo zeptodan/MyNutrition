@@ -1,5 +1,6 @@
 package com.example.mynutrition;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.example.mynutrition.ui.messages.MessageFragment;
 import com.example.mynutrition.ui.notifications.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FragmentManager fm = getSupportFragmentManager();
@@ -58,6 +60,10 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             if(itemID==R.id.logout)
             {
                 Toast.makeText(Homepage.this, "logout", Toast.LENGTH_SHORT).show();
+                FirebaseAuth auth=FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent login= new Intent(this,LogIn.class);
+                startActivity(login);
                 return true;
             }
 
@@ -77,9 +83,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         });
         ft.add(R.id.framelayoutmain, new HomeFragment());
         ft.commit();
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-
     }
     @Override
     public void onBackPressed() {

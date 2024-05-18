@@ -48,7 +48,7 @@ public class LogIn extends AppCompatActivity {
    }
    public void loginButton(View v)
    {
-       email_v=findViewById(R.id.username);
+       email_v=findViewById(R.id.email);
        password_v=findViewById(R.id.password);
        email=email_v.getText().toString();
        password=password_v.getText().toString();
