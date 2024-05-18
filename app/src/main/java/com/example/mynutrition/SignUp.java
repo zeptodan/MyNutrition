@@ -159,6 +159,7 @@ public class SignUp extends AppCompatActivity {
         mobileNumber = mobileNumber_v.getText().toString();
         email_v=findViewById(R.id.email);
         email=email_v.getText().toString();
+        email=email.trim();
         if (mobileNumber.length() != 10 && mobileNumber.length() != 11) {
             Toast.makeText(this, "Invalid mobile number", Toast.LENGTH_SHORT).show();
             return false;
@@ -178,6 +179,7 @@ public class SignUp extends AppCompatActivity {
     public void onBackPressed() {
         Intent login= new Intent(this,LogIn.class);
         startActivity(login);
+        finish();
         super.onBackPressed();
     }
 }

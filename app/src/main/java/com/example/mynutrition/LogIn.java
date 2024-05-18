@@ -51,6 +51,7 @@ public class LogIn extends AppCompatActivity {
        email_v=findViewById(R.id.email);
        password_v=findViewById(R.id.password);
        email=email_v.getText().toString();
+       email=email.trim();
        password=password_v.getText().toString();
        FirebaseAuth auth = FirebaseAuth.getInstance();
        if (email.isEmpty() || password.isEmpty()){

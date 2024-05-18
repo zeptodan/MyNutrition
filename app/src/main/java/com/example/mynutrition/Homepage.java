@@ -1,28 +1,24 @@
 package com.example.mynutrition;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
-import android.window.OnBackInvokedDispatcher;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.ActionBarContextView;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.mynutrition.ui.appointments.AppointmentFragment;
 import com.example.mynutrition.ui.home.HomeFragment;
@@ -39,6 +35,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     DrawerLayout drawerLayout;
     NavigationView nav_view;
     Toolbar toolbar;
+    FrameLayout frameLayout;
 
     @Override
 
@@ -46,20 +43,27 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_homepage);
+
+        ft.add(R.id.framelayoutmain, new HomeFragment());
+        ft.commit();
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        drawerLayout = findViewById(R.id.drawerlayout);
+        drawerLayout = findViewById(R.id.drawerLayout);
         nav_view = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        frameLayout = findViewById(R.id.framelayoutmain);
+
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_open_drawer, R.string.navigation_open_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        toolbar.bringToFront();
         nav_view.bringToFront();
         nav_view.setNavigationItemSelectedListener(menuItem -> {
             int itemID=menuItem.getItemId();
             if(itemID==R.id.logout)
             {
-                Toast.makeText(Homepage.this, "logout", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Homepage.this, "You have been logged out", Toast.LENGTH_SHORT).show();
                 FirebaseAuth auth=FirebaseAuth.getInstance();
                 auth.signOut();
                 Intent login= new Intent(this,LogIn.class);
@@ -69,20 +73,25 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
             else if (itemID==R.id.register_rider){
                 Toast.makeText(Homepage.this, "registor rider", Toast.LENGTH_SHORT).show();
+                Intent registerr =  new Intent(this,RegisterRider.class);
+                startActivity(registerr);
                 return true;
             }
             else if (itemID==R.id.register_nutrition){
                 Toast.makeText(Homepage.this, "Registor nutrionist", Toast.LENGTH_SHORT).show();
+                Intent registern =  new Intent(this,RegisterNutritionist.class);
+                startActivity(registern);
                 return true;
             }
             else if (itemID==R.id.feedback){
                 Toast.makeText(Homepage.this, "feedback", Toast.LENGTH_SHORT).show();
+                Intent feedback= new Intent(this,Feedback.class);
+                startActivity(feedback);
                 return true;
             }
             return false;
         });
-        ft.add(R.id.framelayoutmain, new HomeFragment());
-        ft.commit();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
     }
     @Override
@@ -113,4 +122,5 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         }
         return true;
     }
+
     }
