@@ -66,7 +66,6 @@ public class MessageFragment extends Fragment {
                                 if (nutritionist.isAvailable())
                                     people.add(nutritionist);
                             }
-                            people.add(new Person("man","0330293","re5er4e6wde6"));
                             selectadapter.setPeople(people);
                             selectview.setAdapter(selectadapter);
                             selectview.setLayoutManager(new LinearLayoutManager(view.getContext()));
