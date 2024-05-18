@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/selectcard"
     android:padding="10dp"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/selecttextname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
         <TextView
             android:id="@+id/selecttextphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_below="@+id/selecttextname"/>
+            android:layout_below="@+id/selecttextname"
+            android:text="TextView" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

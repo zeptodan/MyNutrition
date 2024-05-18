@@ -42,7 +42,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         holder.select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chat=new Intent(context, Homepage.class);
+                Intent chat=new Intent(context, Chat.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", people.get(holder.getAdapterPosition()).getId());
                 chat.putExtras(bundle);
