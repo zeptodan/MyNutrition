@@ -8,8 +8,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-<string name="navigation_open_drawer">navigation open drawer</string>
-<string name="navigation_open_close">navigation open close</string>
+    <string name="navigation_open_drawer">navigation open drawer</string>
+    <string name="navigation_open_close">navigation open close</string>
     <string name="title_activity_homepage">homepage</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

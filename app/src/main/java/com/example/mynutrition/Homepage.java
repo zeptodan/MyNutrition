@@ -1,5 +1,6 @@
 package com.example.mynutrition;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mynutrition.ui.Bmi;
+import com.example.mynutrition.ui.Getplan;
 import com.example.mynutrition.ui.appointments.AppointmentFragment;
 import com.example.mynutrition.ui.home.HomeFragment;
 import com.example.mynutrition.ui.messages.MessageFragment;
 import com.example.mynutrition.ui.notifications.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
 
 public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FragmentManager fm = getSupportFragmentManager();
@@ -108,5 +112,14 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             replace_fragment(new NotificationFragment());
         }
         return true;
+    }
+    public void getplan(View view){
+        Intent getplan= new Intent(this, Getplan.class);
+        startActivity (getplan);
+    }
+
+    public void bmiCalc(View view){
+        Intent bmiCalc= new Intent(this, Bmi.class);
+        startActivity (bmiCalc);
     }
     }

@@ -45,6 +45,9 @@
         android:layout_width="158dp"
         android:layout_height="250dp"
         android:layout_marginTop="56dp"
+        android:clickable="true"
+        android:contextClickable="false"
+        android:onClick="getplan"
         android:src="@drawable/getplan"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.47"
@@ -56,6 +59,8 @@
         android:layout_width="158dp"
         android:layout_height="250dp"
         android:layout_marginTop="56dp"
+        android:clickable="true"
+        android:onClick="bmiCalc"
         android:src="@drawable/bmi"
         app:layout_constraintEnd_toEndOf="@+id/viewFlipper"
         app:layout_constraintTop_toBottomOf="@+id/viewFlipper" />
