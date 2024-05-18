@@ -33,7 +33,7 @@ public class MessageFragment extends Fragment {
     SelectAdapter selectadapter;
     ArrayList<Person> people;
     public MessageFragment() {
-        // Required empty public constructor
+        // Required empty public constructor.
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
