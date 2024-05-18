@@ -26,8 +26,7 @@ public class RegisterNutritionist extends AppCompatActivity {
         instituteName_v=findViewById(R.id.institutename);
         CNIC_v=findViewById(R.id.CNIC);
 
-        institureName=instituteName_v.getText().toString();
-        CNIC=CNIC_v.getText().toString();
+
 
 
 
@@ -38,6 +37,8 @@ public class RegisterNutritionist extends AppCompatActivity {
         });
     }
     public void registern(View v){
+        institureName=instituteName_v.getText().toString();
+        CNIC=CNIC_v.getText().toString();
         if(institureName.isEmpty())
         {
             Toast.makeText(this, "Invalid Institute name", Toast.LENGTH_SHORT).show();

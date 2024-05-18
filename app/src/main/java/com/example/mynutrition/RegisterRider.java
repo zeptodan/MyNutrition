@@ -24,9 +24,8 @@ public class RegisterRider extends AppCompatActivity {
         CNIC_v=findViewById(R.id.CNIC);
         vehiclemod_v=findViewById(R.id.vehiclemod);
         vehiclereg_v=findViewById(R.id.vehiclereg);
-        CNIC=CNIC_v.getText().toString();
-        vehiclemod=vehiclemod_v.getText().toString();
-        vehiclereg=vehiclereg_v.getText().toString();
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,15 +33,21 @@ public class RegisterRider extends AppCompatActivity {
         });
     }
     public void registerr(View v){
-            if(vehiclereg.isEmpty())
-            {
-                Toast.makeText(this, "Invalid vehicle registration number", Toast.LENGTH_SHORT).show();
-            }
-            else if (vehiclemod.isEmpty()) {
+
+            CNIC=CNIC_v.getText().toString();
+            vehiclemod=vehiclemod_v.getText().toString();
+            vehiclereg=vehiclereg_v.getText().toString();
+             if (vehiclemod.isEmpty()) {
                 Toast.makeText(this, "Invalid registration number", Toast.LENGTH_SHORT).show();
             }
+             else if(vehiclereg.isEmpty())
+             {
+                 Toast.makeText(this, "Invalid vehicle registration number", Toast.LENGTH_SHORT).show();
+             }
             else if (CNIC.isEmpty()||CNIC.length()<11) {
                 Toast.makeText(this, "Invalid CNIC", Toast.LENGTH_SHORT).show();
             }
+            else
+                 Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
     }
 }
