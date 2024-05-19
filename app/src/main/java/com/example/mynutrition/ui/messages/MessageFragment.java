@@ -58,11 +58,9 @@ public class MessageFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
                 if (nutritionist == null){
-                    Toast.makeText(view.getContext(), "ZAmn", Toast.LENGTH_SHORT).show();
                     db.getReference("nutritionist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            Toast.makeText(view.getContext(), "za", Toast.LENGTH_SHORT).show();
                             Iterable<DataSnapshot> nutritionists = task.getResult().getChildren();
                             Nutritionist nutritionist;
                             for (DataSnapshot ds: nutritionists){
