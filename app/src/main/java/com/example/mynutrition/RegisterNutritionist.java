@@ -61,35 +61,44 @@ public class RegisterNutritionist extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String id = auth.getCurrentUser().getUid();
         DatabaseReference dbref = db.getReference("User");
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-        dbref.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        db.getReference("rider").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                User user = task.getResult().getValue(User.class);
-                Nutritionist nutritionist = new Nutritionist(user.getName(),user.getPhonenum(),user.getId(),true,CNIC,institureName);
-                db.getReference("nutritionist").child(user.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
-                        if (nutritionist == null){
-                            db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
+                Rider rider = task.getResult().getValue(Rider.class);
+                if (rider == null){
+                    dbref.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            User user = task.getResult().getValue(User.class);
+                            Nutritionist nutritionist = new Nutritionist(user.getName(),user.getPhonenum(),user.getId(),true,CNIC,institureName);
+                            db.getReference("nutritionist").child(user.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    db.getReference("User").child(user.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Intent home=new Intent(RegisterNutritionist.this, Homepage.class);
-                                            startActivity(home);
-                                            finish();
-                                        }
-                                    });
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                                    if (nutritionist == null){
+                                        db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                db.getReference("User").child(user.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Intent home=new Intent(RegisterNutritionist.this, Homepage.class);
+                                                        startActivity(home);
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else
+                                        Toast.makeText(RegisterNutritionist.this, "You are already registered sa nutritionist", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-                        else
-                            Toast.makeText(RegisterNutritionist.this, "You are already registered", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                }
+                else
+                    Toast.makeText(RegisterNutritionist.this, "You are already registered as rider", Toast.LENGTH_SHORT).show();
             }
         });
     }
