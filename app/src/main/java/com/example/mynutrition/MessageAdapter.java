@@ -31,16 +31,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (userid.equals(messages.get(position).getSenderId()))
-            holder.message.setText(messages.get(position).getText());
+            holder.imessage.setText(messages.get(position).getText());
         else
-            holder.receivermessage.setText(messages.get(position).getText());
+            holder.receivermessages.setText(messages.get(position).getText());
 
     }
 
     @Override
     public int getItemViewType(int position) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser().equals(messages.get(position).getSenderId()))
+        if (auth.getCurrentUser().getUid().equals(messages.get(position).getSenderId()))
             return 0;
         return 1;
     }
@@ -55,12 +55,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView message;
-        private TextView receivermessage;
+        private TextView imessage;
+        private TextView receivermessages;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            message = itemView.findViewById(R.id.message);
-            receivermessage = itemView.findViewById(R.id.receivermessage);
+            imessage = itemView.findViewById(R.id.messages);
+            receivermessages = itemView.findViewById(R.id.receivermessages);
         }
     }
 }
