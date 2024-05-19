@@ -67,13 +67,27 @@ public class RegisterNutritionist extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 User user = task.getResult().getValue(User.class);
                 Nutritionist nutritionist = new Nutritionist(user.getName(),user.getPhonenum(),user.getId(),true,CNIC,institureName);
-                Toast.makeText(RegisterNutritionist.this, "ZAMN shes 14???", Toast.LENGTH_SHORT).show();
-                db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
+                db.getReference("nutritionist").child(user.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent home=new Intent(RegisterNutritionist.this, Homepage.class);
-                        startActivity(home);
-                        finish();
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                        if (nutritionist == null){
+                            db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    db.getReference("User").child(user.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent home=new Intent(RegisterNutritionist.this, Homepage.class);
+                                            startActivity(home);
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else
+                            Toast.makeText(RegisterNutritionist.this, "You are already registered", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

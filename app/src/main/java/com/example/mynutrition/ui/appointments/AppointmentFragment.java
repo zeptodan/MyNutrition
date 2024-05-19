@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mynutrition.Chat;
 import com.example.mynutrition.Homepage;
@@ -54,14 +55,14 @@ public class AppointmentFragment extends Fragment {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String id = auth.getCurrentUser().getUid();
-        DatabaseReference dbref = db.getReference("Nutritionist").child(id);
+        DatabaseReference dbref = db.getReference("nutritionist").child(id);
         dbref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
                 if (nutritionist == null){
-                    requestadapter = new RequestAdapter(0);
-                    db.getReference("Nutritionist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    requestadapter = new RequestAdapter(0,view.getContext());
+                    db.getReference("nutritionist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             Iterable<DataSnapshot> nutritionists = task.getResult().getChildren();
@@ -69,7 +70,7 @@ public class AppointmentFragment extends Fragment {
                             for (DataSnapshot ds: nutritionists){
                                 nutritionist = ds.getValue(Nutritionist.class);
                                 if (nutritionist.isAvailable())
-                                    people.add(nutritionist);
+                                       people.add(nutritionist);
                             }
                             requestadapter.setPeople(people);
                             requestview.setAdapter(requestadapter);
@@ -78,7 +79,21 @@ public class AppointmentFragment extends Fragment {
                     });
                 }
                 else{
-                    requestadapter = new RequestAdapter(1);
+                    requestadapter = new RequestAdapter(1,view.getContext());
+                    db.getReference("sendrequest").child(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Iterable<DataSnapshot> users = task.getResult().getChildren();
+                            User user;
+                            for (DataSnapshot ds: users){
+                                 user = ds.getValue(User.class);
+                                people.add(user);
+                            }
+                            requestadapter.setPeople(people);
+                            requestview.setAdapter(requestadapter);
+                            requestview.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        }
+                    });
                 }
             }
         });

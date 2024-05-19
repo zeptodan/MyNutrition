@@ -52,7 +52,6 @@ public class MessageFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String id = auth.getCurrentUser().getUid();
         DatabaseReference dbref = db.getReference("nutritionist").child(id);
-        Toast.makeText(view.getContext(), id, Toast.LENGTH_SHORT).show();
         dbref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -66,16 +65,24 @@ public class MessageFragment extends Fragment {
                             for (DataSnapshot ds: nutritionists){
                                 nutritionist = ds.getValue(Nutritionist.class);
                                 if (nutritionist.isAvailable())
-                                    people.add(nutritionist);
+                                    db.getReference("useraccepted").child(id).child(nutritionist.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                                            if (nutritionist != null){
+                                                people.add(nutritionist);
+                                                selectadapter.setPeople(people);
+                                                selectview.setAdapter(selectadapter);
+                                            }
+                                        }
+                                    });
                             }
-                            selectadapter.setPeople(people);
-                            selectview.setAdapter(selectadapter);
                             selectview.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         }
                     });
                 }
                 else{
-                    db.getReference("User").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    db.getReference("nutaccepted").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             Iterable<DataSnapshot> users = task.getResult().getChildren();

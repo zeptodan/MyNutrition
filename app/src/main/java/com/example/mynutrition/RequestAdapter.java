@@ -8,13 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynutrition.ui.appointments.AppointmentFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,9 +29,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     ArrayList<Person> people = new ArrayList<>();
     String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     int type;
-
-    public RequestAdapter(int type) {
+    Context context;
+    public RequestAdapter(int type,Context context) {
         this.type = type;
+        this.context = context;
     }
 
     @NonNull
@@ -49,10 +54,27 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             holder.send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                    DatabaseReference dbref = db.getReference("sendrequest").child(people.get(holder.getAdapterPosition()).getId());
-                    FirebaseAuth auth = FirebaseAuth.getInstance();
-                    dbref.setValue(auth.getCurrentUser().getUid());
+                    FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                    db.getReference("useraccepted").child(userid).child(people.get(holder.getAdapterPosition()).getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                            if (nutritionist == null){
+                                DatabaseReference dbref = db.getReference("sendrequest").child(people.get(holder.getAdapterPosition()).getId()).child(userid);
+                                db.getReference("User").child(userid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        User user = task.getResult().getValue(User.class);
+                                        dbref.setValue(user);
+                                        Toast.makeText(context, "Request Sent.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            else{
+                                Toast.makeText(context, "Request has already been accepted", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
         }
@@ -62,13 +84,46 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             holder.yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                    DatabaseReference dbref = db.getReference("sendrequest").child(userid).child(people.get(holder.getAdapterPosition()).getId());
+                    dbref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            db.getReference("User").child(people.get(holder.getAdapterPosition()).getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    User user = task.getResult().getValue(User.class);
+                                    db.getReference("nutaccepted").child(userid).child(people.get(holder.getAdapterPosition()).getId()).setValue(user);
+                                    db.getReference("nutritionist").child(userid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                                            db.getReference("useraccepted").child(people.get(holder.getAdapterPosition()).getId()).child(userid).setValue(nutritionist);
+                                            people.remove(holder.getAdapterPosition());
+                                            notifyItemRemoved(holder.getAdapterPosition());
+                                            Toast.makeText(context, "Request Accepted.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
+                                }
+                            });
+                        }
+                    });
                 }
             });
             holder.no.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                    DatabaseReference dbref = db.getReference("sendrequest").child(userid).child(people.get(holder.getAdapterPosition()).getId());
+                    dbref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            people.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                            Toast.makeText(context, "Request Denied.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         }
