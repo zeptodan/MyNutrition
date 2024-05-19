@@ -44,7 +44,7 @@ public class RegisterRider extends AppCompatActivity {
              {
                  Toast.makeText(this, "Invalid vehicle registration number", Toast.LENGTH_SHORT).show();
              }
-            else if (CNIC.isEmpty()||CNIC.length()<11) {
+            else if (CNIC.length()!=12) {
                 Toast.makeText(this, "Invalid CNIC", Toast.LENGTH_SHORT).show();
             }
             else

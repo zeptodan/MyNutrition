@@ -42,7 +42,7 @@ public class RegisterNutritionist extends AppCompatActivity {
         if(institureName.isEmpty())
         {
             Toast.makeText(this, "Invalid Institute name", Toast.LENGTH_SHORT).show();
-        } else if (CNIC.isEmpty()||CNIC.length()<11) {
+        } else if (CNIC.length()!=12) {
             Toast.makeText(this, "Invalid CNIC", Toast.LENGTH_SHORT).show();
         }
     }
