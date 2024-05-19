@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mynutrition.Nutritionist;
 import com.example.mynutrition.Person;
@@ -50,15 +51,18 @@ public class MessageFragment extends Fragment {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String id = auth.getCurrentUser().getUid();
-        DatabaseReference dbref = db.getReference("Nutritionist").child(id);
+        DatabaseReference dbref = db.getReference("nutritionist").child(id);
+        Toast.makeText(view.getContext(), id, Toast.LENGTH_SHORT).show();
         dbref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
                 if (nutritionist == null){
-                    db.getReference("Nutritionist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    Toast.makeText(view.getContext(), "ZAmn", Toast.LENGTH_SHORT).show();
+                    db.getReference("nutritionist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Toast.makeText(view.getContext(), "za", Toast.LENGTH_SHORT).show();
                             Iterable<DataSnapshot> nutritionists = task.getResult().getChildren();
                             Nutritionist nutritionist;
                             for (DataSnapshot ds: nutritionists){

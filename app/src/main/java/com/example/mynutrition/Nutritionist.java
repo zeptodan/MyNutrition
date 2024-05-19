@@ -15,6 +15,14 @@ public class Nutritionist extends Person{
         this.institute = institute;
     }
 
+    public String getCnic() {
+        return cnic;
+    }
+
+    public String getInstitute() {
+        return institute;
+    }
+
     public boolean isAvailable() {
         return available;
     }

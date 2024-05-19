@@ -12,11 +12,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterNutritionist extends AppCompatActivity {
@@ -54,13 +57,17 @@ public class RegisterNutritionist extends AppCompatActivity {
             Toast.makeText(this, "Invalid CNIC", Toast.LENGTH_SHORT).show();
             return;
         }
+        FirebaseDatabase db = FirebaseDatabase.getInstance("https://mynutrition-ab250-default-rtdb.asia-southeast1.firebasedatabase.app/");
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        db.getReference("user").child(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        String id = auth.getCurrentUser().getUid();
+        DatabaseReference dbref = db.getReference("User");
+        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+        dbref.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 User user = task.getResult().getValue(User.class);
-                Nutritionist nutritionist = new Nutritionist(user.getName(),user.getPhonenum(),user.getId(),false,CNIC,institureName);
+                Nutritionist nutritionist = new Nutritionist(user.getName(),user.getPhonenum(),user.getId(),true,CNIC,institureName);
+                Toast.makeText(RegisterNutritionist.this, "ZAMN shes 14???", Toast.LENGTH_SHORT).show();
                 db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
