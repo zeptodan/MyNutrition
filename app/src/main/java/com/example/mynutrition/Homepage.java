@@ -52,6 +52,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_open_drawer, R.string.navigation_open_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        toolbar.bringToFront();
         nav_view.bringToFront();
         nav_view.setNavigationItemSelectedListener(menuItem -> {
             int itemID=menuItem.getItemId();

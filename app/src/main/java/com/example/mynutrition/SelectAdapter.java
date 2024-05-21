@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -42,11 +43,19 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
         holder.select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               try{
                 Intent chat=new Intent(context, Chat.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", people.get(holder.getAdapterPosition()).getId());
                 chat.putExtras(bundle);
-                context.startActivity(chat);
+
+
+                    context.startActivity(chat);
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(context, "This is shit", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
