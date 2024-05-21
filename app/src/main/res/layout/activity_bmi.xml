@@ -27,14 +27,13 @@
         android:layout_width="133dp"
         android:layout_height="59dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="36dp"
-        android:text="Weight"
+        android:layout_marginTop="28dp"
+        android:text="Weight (In kg)"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView19"
+        app:layout_constraintEnd_toStartOf="@+id/textView28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
-        tools:ignore="MissingConstraints,NotSibling" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/textView28"
@@ -42,78 +41,84 @@
         android:layout_height="59dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="56dp"
-        android:text="Height"
+        android:text="Height (In inches)"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
-        tools:ignore="DuplicateIds,MissingConstraints" />
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/weightInput"
         android:layout_width="133dp"
         android:layout_height="40dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="weight"
+        android:inputType="numberDecimal"
+        android:hint="Enter weight"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/heightInput"
         android:layout_width="133dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="height"
+        android:inputType="numberDecimal"
+        android:hint="Enter height"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/textView28"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/weightInput"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
-    <TextView
-        android:id="@+id/textView20"
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="BMI"
-        android:textAlignment="center"
-        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:text="Calculate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/heightInput" />
 
     <TextView
         android:id="@+id/feedback1"
-        android:layout_width="77dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:layout_width="167dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="20dp"
+        android:text="Your BMI Is"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <TextView
-        android:id="@+id/textView22"
-        android:layout_width="298dp"
-        android:layout_height="113dp"
-        android:layout_marginBottom="68dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bmiResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feedback1"
-        app:layout_constraintVertical_bias="0.921" />
+        app:layout_constraintTop_toBottomOf="@+id/feedback1" />
+
+    <TextView
+        android:id="@+id/normalRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bmiResult" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
