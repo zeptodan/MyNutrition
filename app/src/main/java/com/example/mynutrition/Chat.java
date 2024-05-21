@@ -44,11 +44,11 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
         chatview = findViewById(R.id.chatview);
         MessageAdapter adapter = new MessageAdapter();
         messages = new ArrayList<>();
@@ -100,7 +100,7 @@ public class Chat extends AppCompatActivity {
         });
     }
     public void sendMessage(View v){
-        TextInputEditText edittext = findViewById(R.id.sendMessage);
+        EditText edittext = findViewById(R.id.sendMessage);
         String text = edittext.getText().toString();
         if (text.isEmpty()){
             return;

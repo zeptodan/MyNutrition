@@ -35,7 +35,7 @@
         android:layout_marginTop="128dp"
         android:background="@drawable/round"
         android:onClick="registern"
-        android:text="Registor"
+        android:text="Register"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

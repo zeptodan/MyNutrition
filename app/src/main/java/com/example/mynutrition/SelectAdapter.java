@@ -48,9 +48,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.ViewHolder
                 Bundle bundle = new Bundle();
                 bundle.putString("id", people.get(holder.getAdapterPosition()).getId());
                 chat.putExtras(bundle);
-
-
-                    context.startActivity(chat);
+                context.startActivity(chat);
                 }
                 catch (Exception e)
                 {
