@@ -47,7 +47,6 @@
             android:layout_marginStart="20dp"
             android:background="#00008577"
             android:minHeight="?attr/actionBarSize"
-            android:onClick="setName"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

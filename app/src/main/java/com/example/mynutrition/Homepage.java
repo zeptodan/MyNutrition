@@ -108,13 +108,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
                 return true;
             }
-
-            else if (itemID==R.id.register_rider){
-                Intent intent= new Intent(this,RegisterRider.class);
-                startActivity(intent);
-
-                return true;
-            }
             else if (itemID==R.id.register_nutrition){
                 Intent intent= new Intent(this,RegisterNutritionist.class);
                 startActivity(intent);
@@ -158,8 +151,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             replace_fragment(new AppointmentFragment());
         } else if (id == R.id.home1) {
             replace_fragment(new HomeFragment());
-        } else if (id == R.id.notification) {
-            replace_fragment(new NotificationFragment());
         }
         return true;
     }

@@ -74,8 +74,8 @@ public class RegisterNutritionist extends AppCompatActivity {
                             db.getReference("nutritionist").child(user.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
-                                    if (nutritionist == null){
+                                    Nutritionist nutritionist1 = task.getResult().getValue(Nutritionist.class);
+                                    if (nutritionist1 == null){
                                         db.getReference("nutritionist").child(user.getId()).setValue(nutritionist).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {

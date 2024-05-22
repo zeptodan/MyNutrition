@@ -28,7 +28,7 @@ TextView feedback1_v,rickroll_v;
         });
     }
    public void rickroll(View v){
-        gotoUrl("https://tinyurl.com/mynutrition2");
+        gotoUrl("https://tinyurl.com/feedbackNutrition");
     }
     public void  gotoUrl(String s)
     {

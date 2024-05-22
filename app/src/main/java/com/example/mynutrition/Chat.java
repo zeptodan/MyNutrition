@@ -1,8 +1,10 @@
 package com.example.mynutrition;
 
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +37,7 @@ public class Chat extends AppCompatActivity {
     RecyclerView chatview;
     ArrayList<Message> messages;
     DatabaseReference dbref;
+    TextView chattername;
 
     String senderId;
     String receiverId;
@@ -44,12 +47,9 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
         chatview = findViewById(R.id.chatview);
+        chattername = findViewById(R.id.chattername);
+
         MessageAdapter adapter = new MessageAdapter();
         messages = new ArrayList<>();
         //first display.
@@ -69,6 +69,24 @@ public class Chat extends AppCompatActivity {
         dbref = db.getReference("messages/" + path);
         chatview.setAdapter(adapter);
         chatview.setLayoutManager(new LinearLayoutManager(Chat.this));
+        db.getReference("User").child(receiverId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                User user = task.getResult().getValue(User.class);
+                if (user == null){
+                    db.getReference("nutritionist").child(receiverId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Nutritionist nutritionist = task.getResult().getValue(Nutritionist.class);
+                            chattername.setText(nutritionist.getName());
+                        }
+                    });
+                }
+                else{
+                    chattername.setText(user.getName());
+                }
+            }
+        });
         //Listener
         dbref.addChildEventListener(new ChildEventListener() {
             @Override

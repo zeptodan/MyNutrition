@@ -14,8 +14,4 @@
         android:id="@+id/message"
         android:icon="@drawable/baseline_3p_24"
         android:title="@string/message" />
-    <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/notifications" />
 </menu>

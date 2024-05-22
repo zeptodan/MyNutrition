@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/register_rider"
-        android:icon="@drawable/register"
-        android:title="Registor as a rider" />
 
     <item
         android:id="@+id/register_nutrition"
         android:icon="@drawable/register"
-        android:title="Registor as a nutritionist"/>
+        android:title="Register as a nutritionist" />
     <item
         android:id="@+id/feedback"
         android:icon="@drawable/feedback"
